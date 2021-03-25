@@ -1,8 +1,14 @@
+@font-face {
+    font-family: dungeonFont;
+    src: url('../css/dungeonFont/DUNGRG__.TTF')
+}
+
 body {
     min-height: 100vh;
     display: flex;
     align-items: center;
     background-image: url('../css/paperBackground.jpg');
+    font-family: cursive;
 }
 
 
@@ -38,8 +44,10 @@ body {
 }
 
 .iconRow button {
+    font-family: dungeonFont;
     background-color: transparent;
     font-size: 25px;
+    font-weight: bold;
     border: none;
     padding-bottom: 5px;
     line-height: 25px;
@@ -47,8 +55,8 @@ body {
 
 .iconRow button:focus {
     box-shadow: 5px 10px 8px #888888;
-    outline: none;
-    border: 1px solid black;
+    border: none;
+    outline: 1px solid black;
 }
 .iconRow .red {
     color: red;
