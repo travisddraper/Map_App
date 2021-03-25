@@ -70,8 +70,7 @@ body {
 #addIconInput {
     height: 25px;
     line-height: 25px;
-   
-    width: 25%;
+    width: 100%;
     border: 1px solid black;
 }
 
@@ -81,6 +80,24 @@ body {
     }
     #addIconInput {
         width: 100%;
-        columns: ;
     }
+}
+
+.inputCol {
+    padding-right: 5px;
+}
+.radioCol {
+    font-size: 10px;
+
+}
+
+.radioBox {
+    line-height: 10px;
+    flex-wrap: wrap;
+
+}
+
+#toggleBlue,
+#toggleRed {
+    height: 10px;
 }
