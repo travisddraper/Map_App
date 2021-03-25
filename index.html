@@ -6,10 +6,64 @@
     <title>DnD Map</title>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="script.js"></script>
+    <script src="application.js"></script>
     
     
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
 
   </head>
+  <body>
+    <div class="container-fluid">
+        <div class="formBox row mb-3">
+            <form id="imageForm">
+                <input id="imageInput" class="" type="text" placeholder="Enter Map URL" />
+                <button type="submit" id="formSubmit" class="">Load Map</button>
+            </form>
+        </div>
+        <div class="imageBox col-12">
+            <img id="image" class="img-fluid" src="https://d20.pub/assets/uploads/2018/03/Greenest-Town-Map-near-Baldurs-Gate-on-the-Sword-Coast-Forgotten-Realms-Hoard-of-the-Dragon-Queen-Adventure-Module-web.png" >
+        </div>
+        <div class="boxRow row mt-5">
+            <div class="iconRow col-8 d-flex">
+            <div class="icon1 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="blue Ag">Ag</button>
+            </div>
+            <div class="icon2 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="blue Al">Al</button>
+            </div>
+            <div class="icon3 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="blue F">F</button>
+            </div>
+            <div class="icon4 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="blue Zy">Zy</button>
+            </div>
+            <div class="icon5 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="blue X">X</button>
+            </div>
+            <div class="icon6 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="red X">X</button>
+            </div>
+            <div class="icon7 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="blue !">!</button>
+            </div>
+            <div class="icon8 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="red !">!</button>
+            </div>
+            <div class="icon9 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="blue +">?</button>
+            </div>
+            <div class="icon10 col-2 col-md-1 pb-2 pb-md-0">
+                <button class="red +">?</button>
+            </div>
+            <div class="form11 col-2 col-md-2 pb-2 pb-md-0">
+                <form id="addIconForm" class="">
+                    <input id="addIconInput" class="" type="text" />
+                    <label for="addIconInput" class="iconLabel">Add Icon</label>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+  </body>
+</html>

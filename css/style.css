@@ -1,0 +1,86 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-image: url('../css/paperBackground.jpg');
+}
+
+
+
+.formBox {
+    justify-content: center;
+}
+
+.imageBox {
+    text-align: center;
+}
+
+#image {
+    max-height: 800px;
+    width: auto;
+    border: 4px groove rgb(156, 89, 0);
+    box-shadow: 5px 10px 8px rgba(0, 0, 0, 0.5);
+}
+
+.boxRow {
+    justify-content: center;
+}
+
+.iconRow {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    border: 4px groove rgb(156, 89, 0);
+    box-shadow: 5px 10px 8px rgba(0, 0, 0, 0.5);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: antiquewhite;
+  
+}
+
+.iconRow button {
+    background-color: transparent;
+    font-size: 25px;
+    border: none;
+    padding-bottom: 5px;
+    line-height: 25px;
+}
+
+.iconRow button:focus {
+    box-shadow: 5px 10px 8px #888888;
+    outline: none;
+    border: 1px solid black;
+}
+.iconRow .red {
+    color: red;
+}
+
+.iconRow .blue {
+    color: blue;
+}
+
+.special {
+    text-align: center;
+}
+
+#addIconForm {
+    text-align: center;
+    padding-top: 3px;
+}
+
+#addIconInput {
+    height: 25px;
+    line-height: 25px;
+   
+    width: 25%;
+    border: 1px solid black;
+}
+
+@media(max-width: 1201px) {
+    .iconLabel {
+        display: none;
+    }
+    #addIconInput {
+        width: 100%;
+        columns: ;
+    }
+}
