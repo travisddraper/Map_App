@@ -66,6 +66,41 @@ body {
     text-align: center;
     padding-top: 3px;
 }
+@media(max-width: 991px) {
+
+    .iconRow {
+        justify-content:space-evenly;
+    }
+    .iconRow button {
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    #addIconForm {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .inputCol {
+        padding-right: 15px !important;
+        width: 65px;
+        margin: 0 auto;
+    }
+
+    .radioCol {
+        text-align: center;
+        padding-top: 5px;
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+    }
+    
+    .radioBox {
+        display: inline-flex !important;
+        text-align: center;
+    }
+
+
+}
 
 #addIconInput {
     height: 25px;
@@ -94,7 +129,6 @@ body {
 .radioBox {
     line-height: 10px;
     flex-wrap: wrap;
-
 }
 
 #toggleBlue,
