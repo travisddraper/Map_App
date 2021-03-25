@@ -83,31 +83,26 @@ body {
         font-size: 20px;
         line-height: 20px;
     }
-
-    #addIconForm {
-        display: flex;
-        flex-direction: column;
-    }
-
     .inputCol {
-        padding-right: 15px !important;
         width: 65px;
-        margin: 0 auto;
     }
 
     .radioCol {
         text-align: center;
-        padding-top: 5px;
-        padding-right: 15px !important;
-        padding-left: 15px !important;
-    }
-    
-    .radioBox {
-        display: inline-flex !important;
-        text-align: center;
     }
 
+}
+@media(max-width: 767px) {
 
+    #addIconForm {
+        justify-content: center;
+    }
+    .inputCol {
+        padding-right: 0;
+    }
+    .radioCol {
+        padding-top: 0.5rem;
+    }
 }
 
 #addIconInput {
@@ -118,20 +113,17 @@ body {
 }
 
 @media(max-width: 1201px) {
-    .iconLabel {
-        display: none;
+    #addIconInput {
+        width: 70%;
     }
+}
+@media(max-width: 426px) {
     #addIconInput {
         width: 100%;
     }
 }
-
-.inputCol {
-    padding-right: 5px;
-}
 .radioCol {
     font-size: 10px;
-
 }
 
 .radioBox {
