@@ -19,6 +19,9 @@ PAGE LOADS (loadServer(), LoadServerImage(id)) --> BUTTON ICON IS PRESSED (addNe
 
 */
 
+function isUpperCase(string) {
+   return /^[A-Z]*$/.test(string);
+}
 
 var loadServer = function() {
     $.ajax({
@@ -26,22 +29,37 @@ var loadServer = function() {
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=28',
         dataType: 'json',
         success: function(response, textStatus) {
-            console.log('loading server');
+
+            $('.icon').remove();
+            console.log('icons in server',response.tasks.length);
+
+
+            
+            //datapacket = [x,z,name]
             response.tasks.forEach(function(task) {
                 var dataPacket = task.content.split(' ');
                 if(Array.isArray(dataPacket)) {
+                    
                     var name = dataPacket[2];
+                    console.log(name);
+
+
+
+
+
+
+
                     var x = dataPacket[0]
                     var y = dataPacket[1]
                     
-                    $('.iconRow').prepend($('<div style="left:' + x +'px; top:' + y + 'px" class="icon" data-id="' + task.id + '">'+ name + '</div>'))
+                    $('#' + name).prepend($('<div style="left:' + x +'px; top:' + y + 'px" class="icon" data-id="' + task.id + '">'+ name + '</div>'))
+                    console.log('injected', task.id);
+                    
 
 
-                    //INJECT IT INTO THE DOM AT SPECIFIED X-Y POSITION WITH DATA ID AND CSS STYLING CLASSES
-                    console.log(dataPacket);
+                    //INJECT IT INTO THE DOM AT SPECIFIED X-Y POSITION WITH DATA ID AND CSS STYLING CLASSES;
                 }
             })
-            console.log('woohooo');
         },
         error: function (request, textStatus, errorMessage) {
             console.log(errorMessage);
@@ -62,7 +80,6 @@ var addNewIconServer = function(datapacket) {
             }
         }),
         success: function(response, textStatus) {
-            console.log('success!');
             loadServer();
         },
         error: function(request, textStatus, errorMessage) {
@@ -113,6 +130,19 @@ var replaceServerImage = function(id) {
 }
 */
 
+var deleteIconServer = function(id) {
+    $.ajax({
+        type: 'DELETE',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '?api_key=28',
+        success: function (response, textStatus) {
+          
+        },
+        error: function (request, textStatus, errorMessage) {
+          console.log(errorMessage);
+        }
+    });
+}
+
 
 
     
@@ -154,13 +184,12 @@ var toggleMove = function(elmnt, e) {
     dragMouseDown(e);
 }
 
-var buildAButton = function(elmnt, iconText) {
-    $(elmnt).parent().prepend($('<div class="icon" data-id="">' + iconText + '</div>'))
+//var buildAButton = function(elmnt, iconText) {
+    //$(elmnt).parent().prepend($('<div class="icon" data-id="">' + iconText + '</div>'))
     //console.log('y position', ($(elmnt).parent().children()[0]).getBoundingClientRect().top);
     //var y = window.scrollY + ($(elmnt).parent().children()[0]).getBoundingClientRect().top
     //var x = window.scrollX + ($(elmnt).parent().children()[0]).getBoundingClientRect().left
-    return [x,y]
-}
+//}
 
 
 $(document).ready(function() {
@@ -169,16 +198,10 @@ $(document).ready(function() {
 
     $('.iconButton').on('click', function() {
         var iconText = $(this).text();
-        var datapacket = buildAButton($(this), iconText);
-        datapacket.push(iconText);
-        //
-        //console.log((datapacket.join(' ').split(' ')));
-        //var x = $(this)[0].style.left;
-        //var y = $(this)[0].style.top;2
-        //var datapacket = [x, y, iconText];
-        //console.log(datapacket.join(''));
-
-        //addNewIconServer(datapacket.join(' '))
+        //buildAButton($(this), iconText);
+        var datapacket = [21, -49, iconText].join(' ');
+        console.log(datapacket);
+        addNewIconServer(datapacket)
     })
 
     $('#addIconForm').on('submit', function(e) {
@@ -189,6 +212,13 @@ $(document).ready(function() {
     $(document).on('mousedown', '.icon', function(e) {
         var elmnt = $(this)[0]
         toggleMove(elmnt, e);
+    })
+
+    $(document).on('contextmenu', '.icon', function(event) {
+        event.preventDefault();
+        $(this).remove();
+        deleteIconServer($(this).data('id'));
+        console.log('deleted', $(this).data('id'))
     })
 
 
