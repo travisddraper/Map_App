@@ -87,3 +87,19 @@ var replaceServerImage = function(id) {
 }
 
 */
+
+$(document).ready(function() {
+
+    $('.iconButton').on('click', function() {
+        var iconText = $(this).text();
+        
+    })
+
+    $('#addIconForm').on('submit', function(e) {
+        e.preventDefault();
+        var iconText = $('#addIconInput').val();
+        
+    });
+
+
+})

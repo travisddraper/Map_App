@@ -17,6 +17,12 @@ body {
     justify-content: center;
 }
 
+@media(max-width: 575px) {
+    #imageInput {
+      width: 100px;
+    }
+}
+
 .imageBox {
     text-align: center;
 }
