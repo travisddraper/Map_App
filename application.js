@@ -17,42 +17,68 @@
 PAGE LOADS (loadServer(), LoadServerImage(id)) --> BUTTON ICON IS PRESSED (addNewIconServer()) --> ICON IS DRAGGED (changeServerPosition(id)) --
 --> 3 SECONDS GOES BY AND YOU DON'T INTERACT WITH WINDOW (loadServer());
 
+*/
+
 
 var loadServer = function() {
-    ajax request {
+    $.ajax({
         type: 'GET',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=28',
+        dataType: 'json',
         success: function(response, textStatus) {
+            console.log('loading server');
             response.tasks.forEach(function(task) {
-                if(task.content IS AN ARRAY) {
-                    INJECT IT INTO THE DOM AT SPECIFIED X-Y POSITION WITH DATA ID AND CSS STYLING CLASSES
-                })
-            })
+                var dataPacket = task.content.split(' ');
+                if(Array.isArray(dataPacket)) {
+                    var name = dataPacket[2];
+                    var x = dataPacket[0]
+                    var y = dataPacket[1]
+                    
+                    $('.iconRow').prepend($('<div style="left:' + x +'px; top:' + y + 'px" class="icon" data-id="' + task.id + '">'+ name + '</div>'))
 
+
+                    //INJECT IT INTO THE DOM AT SPECIFIED X-Y POSITION WITH DATA ID AND CSS STYLING CLASSES
+                    console.log(dataPacket);
+                }
+            })
+            console.log('woohooo');
+        },
+        error: function (request, textStatus, errorMessage) {
+            console.log(errorMessage);
         }
-    }
+    });
 }
 
-var addNewIconServer = function() {
-    ajax request({
+var addNewIconServer = function(datapacket) {
+
+    $.ajax({
         type: 'POST',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=28',
+        contentType: 'application/json',
+        dataType: 'json',
         data: JSON.stringify({
             task: {
-                content: [x,y]
+                content: datapacket
             }
         }),
         success: function(response, textStatus) {
+            console.log('success!');
             loadServer();
+        },
+        error: function(request, textStatus, errorMessage) {
+            console.log(request, textStatus, errorMessage);
         }
-    })
+    });
 }
 
-var changeServerPosition = function(id) {
+/*
+var changeServerPosition = function(largerdatapacket) {
     ajax requests {
         type: 'PUT',
         url: 'link with id',
         data: JSON.stringify({
             task: {
-                content: [x,y]
+                content: largerdatapacket [x,y,name,id]
             }
         }),
         success: function(response, textStatus) {
@@ -85,21 +111,85 @@ var replaceServerImage = function(id) {
         }
     }
 }
-
 */
+
+
+
+    
+
+    
+var toggleMove = function(elmnt, e) {
+    var pos1=0; var pos2=0; var pos3=0; var pos4=0;
+
+    var elementDrag = function(e) {
+
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
+  
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
+    }
+
+    var closeDragElement = function() {
+
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+
+    var dragMouseDown = function(e) {
+        
+        e = e || window.event;
+        e.preventDefault();
+
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+    }
+
+    dragMouseDown(e);
+}
+
+var buildAButton = function(elmnt, iconText) {
+    $(elmnt).parent().prepend($('<div class="icon" data-id="">' + iconText + '</div>'))
+    //console.log('y position', ($(elmnt).parent().children()[0]).getBoundingClientRect().top);
+    //var y = window.scrollY + ($(elmnt).parent().children()[0]).getBoundingClientRect().top
+    //var x = window.scrollX + ($(elmnt).parent().children()[0]).getBoundingClientRect().left
+    return [x,y]
+}
+
 
 $(document).ready(function() {
 
+    loadServer();
+
     $('.iconButton').on('click', function() {
         var iconText = $(this).text();
-        
+        var datapacket = buildAButton($(this), iconText);
+        datapacket.push(iconText);
+        //
+        //console.log((datapacket.join(' ').split(' ')));
+        //var x = $(this)[0].style.left;
+        //var y = $(this)[0].style.top;2
+        //var datapacket = [x, y, iconText];
+        //console.log(datapacket.join(''));
+
+        //addNewIconServer(datapacket.join(' '))
     })
 
     $('#addIconForm').on('submit', function(e) {
         e.preventDefault();
         var iconText = $('#addIconInput').val();
-        
     });
+
+    $(document).on('mousedown', '.icon', function(e) {
+        var elmnt = $(this)[0]
+        toggleMove(elmnt, e);
+    })
 
 
 })

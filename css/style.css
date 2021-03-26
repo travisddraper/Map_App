@@ -142,3 +142,19 @@ body {
 #toggleRed {
     height: 10px;
 }
+
+.icon {
+    position: absolute;
+    top: -45px;
+    left: 20px;
+    z-index: 9;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 20px;
+    padding: 2px;
+    font-family: dungeonFont;
+}
