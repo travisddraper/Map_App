@@ -297,10 +297,10 @@ $(document).ready(function() {
 
     var interval;
 
-    //$(window).on('keydown keyup click mousemove change', function(event) {
-        //interval = intervalReset(interval);
-        //refreshThis();
-    //})
+    $(window).on('keydown keyup click mousemove change', function(event) {
+        interval = intervalReset(interval);
+        refreshThis();
+    })
 
 
     $('#imageForm').on('submit', function(e) {
@@ -321,7 +321,7 @@ $(document).ready(function() {
             iconText = iconText+"blue"
         }
 
-        var datapacket = [469, 703, iconText].join(' ');
+        var datapacket = [415, 642, iconText].join(' ');
  
         addNewIconServer(datapacket)
     })
@@ -332,7 +332,7 @@ $(document).ready(function() {
         var color = $("input[name=colorToggle]:checked").val()
         var iconText = nameInput+color+0;
         
-        datapacket = [469, 703, iconText].join(' ');
+        datapacket = [415, 642, iconText].join(' ');
 
         addNewIconServer(datapacket);
     });
