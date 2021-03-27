@@ -14,18 +14,20 @@
 
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="shelf">
         <div class="formBox row mb-3">
             <form id="imageForm">
                 <input id="imageInput" class="" type="text" placeholder="Enter Map URL" />
                 <button type="submit" id="formSubmit" class="">Load Map</button>
             </form>
         </div>
-        <div class="imageBox col-12">
-            <img id="image" class="img-fluid" src="https://d20.pub/assets/uploads/2018/03/Greenest-Town-Map-near-Baldurs-Gate-on-the-Sword-Coast-Forgotten-Realms-Hoard-of-the-Dragon-Queen-Adventure-Module-web.png" >
+        <div class="imageBox">
+            <div id="aspectRatioBox" class="mb-2" style="background-image: url(https://i.redd.it/kyrry2mda0h31.jpg)">
+                <div class="position-absolute w-100 h-100 d-flex flex-column justify-content-center align-items-center overlay"></div>
+            </div>
         </div>
-        <div class="boxRow row mt-5">
-            <div class="iconRow col-10 col-lg-8 d-flex pb-0 pb-md-2">
+        <div class="boxRow row mt-3">
+            <div class="iconRow col-11 d-flex pb-0 pb-md-2">
             <div id="Ag" class="col-2 col-md-1 pb-2 pb-md-0">
                 <button class="iconButton blue Ag">Ag</button>
                 <div class="icon" data-id="">Ag</div>

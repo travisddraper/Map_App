@@ -11,6 +11,11 @@ body {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+.shelf {
+    margin: 0 auto;
+    min-width: 700px !important;
+
+}
 
 
 .formBox {
@@ -24,18 +29,26 @@ body {
 }
 
 .imageBox {
-    text-align: center;
+    min-width: 990px !important;
+    margin: 0 auto;
 }
 
-#image {
-    max-height: 800px;
-    width: auto;
-    border: 4px groove rgb(156, 89, 0);
-    box-shadow: 5px 10px 8px rgba(0, 0, 0, 0.5);
+#aspectRatioBox {
+    position: relative;
+    padding-top: calc(3/4 * 100%); 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+}
+
+.overlay {
+    top: 0;
 }
 
 .boxRow {
     justify-content: center;
+    min-width: 991px !important;
 }
 
 .iconRow {
@@ -64,11 +77,11 @@ body {
     border: none;
     outline: 1px solid black;
 }
-.iconRow .red {
+.red {
     color: red;
 }
 
-.iconRow .blue {
+.blue {
     color: blue;
 }
 
