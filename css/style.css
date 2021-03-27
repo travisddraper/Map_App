@@ -29,7 +29,7 @@ body {
 }
 
 .imageBox {
-    min-width: 990px !important;
+    width: 900px !important;
     margin: 0 auto;
 }
 
@@ -51,6 +51,16 @@ body {
     min-width: 991px !important;
 }
 
+@media(max-width: 990px) {
+    .boxRow {
+        margin-left: -25px !important;
+    }
+}
+@media(max-width: 900px) {
+    .boxRow {
+        margin-left: -40px !important;
+    }
+}
 .iconRow {
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -60,6 +70,15 @@ body {
     padding-bottom: 10px;
     background-color: antiquewhite;
   
+}
+@media(max-width: 767px) {
+    .iconRow {
+        width: 50%;
+       
+    }
+    .producer {
+        flex: 0;
+    }
 }
 
 .iconRow button {
