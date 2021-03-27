@@ -282,7 +282,7 @@ var debounce = function(callback, delay) {
 var refreshThis = debounce(function() {
     console.log('debounced!');
     loadServer();
-}, 1000);
+}, 3000);
 
 
 
@@ -363,6 +363,13 @@ $(document).ready(function() {
         $(this).remove();
         deleteIconServer($(this).data('id'));
 
+    })
+
+    $('#clearAll').on('click', function() {
+        $('.icon').each(function() {
+            $(this).remove();
+            deleteIconServer($(this).data('id'))
+        })
     })
 
 

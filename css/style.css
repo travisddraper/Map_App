@@ -13,7 +13,7 @@ body {
 
 .shelf {
     margin: 0 auto;
-    min-width: 700px !important;
+    min-width: 900px !important;
 
 }
 
@@ -21,6 +21,11 @@ body {
 .formBox {
     justify-content: center;
 }
+
+.formBoxCol {
+    justify-content:space-between;
+}
+
 
 @media(max-width: 575px) {
     #imageInput {
