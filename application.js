@@ -26,7 +26,7 @@ function isUpperCase(string) {
 var loadServer = function() {
     $.ajax({
         type: 'GET',
-        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=28',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=29',
         dataType: 'json',
         success: function(response, textStatus) {
 
@@ -34,45 +34,46 @@ var loadServer = function() {
 
             response.tasks.forEach(function(task) {
                 var dataPacket = task.content.split(' ');
+                
                 if(Array.isArray(dataPacket)) {
                     var name = dataPacket[2];
                     var color;
                     var text;
 
-
+                    
                     if(/red/.test(name)) {
 
                         name = name.replace('red','');
                         color = 'red';
-
+                        
                         if(/X/.test(name)) {
 
                             name = 'redX'
                             text = 'X'
-
+                        
                         }else if (/!/.test(name)) {
 
                             name = 'redAH'
                             text = "!"
-
-                        }else if(/\\?/.test(name)) {
+                            
+                        }else if(/\?/.test(name)) {
 
                             name = 'redQ'
                             text = "?"
-
+                           
                         }else if(/0/.test(name)) {
 
                             text = name.replace('0','');
                             name = 'newCharacter'
-
+                           
                         }else {
                             text = name;
                         }
                     } else if (/blue/.test(name)) {
-
+                        console.log("HAS CLASS BLUE")
                         name = name.replace('blue','');
                         color = 'blue';
-                        
+                   
                         if(/X/.test(name)) {
                            
                             name = 'blueX'
@@ -83,7 +84,7 @@ var loadServer = function() {
                             name = 'blueAH'
                             text = "!"
                             
-                        }else if(/\\?/.test(name)) {
+                        }else if(/\?/.test(name)) {
                             
                             name = 'blueQ'
                             text = "?"
@@ -103,8 +104,9 @@ var loadServer = function() {
                     var y = dataPacket[1]
 
 
-
+                    
                     $('#' + name).prepend($('<div style="left:' + x +'px; top:' + y + 'px" class="icon ' + color +'" data-id="' + task.id + '">'+ text + '</div>'))
+                   
                 }
             })
         },
@@ -118,7 +120,7 @@ var addNewIconServer = function(datapacket) {
 
     $.ajax({
         type: 'POST',
-        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=28',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=29',
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify({
@@ -139,7 +141,7 @@ var addNewIconServer = function(datapacket) {
 var changeServerPosition = function(datapacketz, id) {
     $.ajax({
         type: 'PUT',
-        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '/mark_complete?api_key=28',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/'+ id +'?api_key=29',
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify({
@@ -148,8 +150,8 @@ var changeServerPosition = function(datapacketz, id) {
             }
         }),
         success: function(response, textStatus) {
-            console.log('datapacket from move:', datapacketz)
-            console.log('server response:', response);
+
+            loadServer();
         },
         error: function(request, textStatus, errorMessage) {
             console.log(errorMessage);
@@ -187,7 +189,7 @@ var replaceServerImage = function(id) {
 var deleteIconServer = function(id) {
     $.ajax({
         type: 'DELETE',
-        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '?api_key=28',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '?api_key=29',
         success: function (response, textStatus) {
           
         },
@@ -205,6 +207,7 @@ var deleteIconServer = function(id) {
 var toggleMove = function(elmnt, e, iconText) {
     var pos1=0; var pos2=0; var pos3=0; var pos4=0;
     var datapacket;
+
 
     var elementDrag = function(e) {
 
@@ -234,8 +237,7 @@ var toggleMove = function(elmnt, e, iconText) {
 
         var datapacketz = [x, y, iconText].join(' ');
         var id = $(elmnt).data('id');
-
-
+        console.log($(elmnt).hasClass('blue'));
         changeServerPosition(datapacketz, id)
     }
 
@@ -277,7 +279,7 @@ $(document).ready(function() {
         }
 
         var datapacket = [21, -49, iconText].join(' ');
-        console.log('data packet from new', datapacket);
+ 
         addNewIconServer(datapacket)
     })
 
@@ -288,12 +290,15 @@ $(document).ready(function() {
         var iconText = nameInput+color+0;
         
         datapacket = [21, -49, iconText].join(' ');
-        console.log(datapacket.split(' '));
+
         addNewIconServer(datapacket);
     });
 
     $(document).on('mousedown', '.icon', function(e) {
         var iconText = $(this).text()
+        if($(this).parent().is("#newCharacter")) {
+            iconText += "0";
+        }
 
         if(($(this).hasClass('red'))) {
             iconText = iconText+"red"
@@ -310,7 +315,7 @@ $(document).ready(function() {
         event.preventDefault();
         $(this).remove();
         deleteIconServer($(this).data('id'));
-        console.log('deleted', $(this).data('id'))
+
     })
 
 
