@@ -87,7 +87,7 @@ var loadServer = function() {
                     
                     $(".overlay").prepend($('<div style="left:' + x +'px; top:' + y + 'px" class="icon ' + color +'" data-id="' + task.id + '">'+ text + '</div>'))
                    
-                } else {
+                } else if (task.id === 1155) {
                     
                     $('#aspectRatioBox').css("background-image", "url(" + task.content + ")");
                 }
@@ -329,12 +329,15 @@ $(document).ready(function() {
     $('#addIconForm').on('submit', function(e) {
         e.preventDefault();
         var nameInput = $('#addIconInput').val();
-        var color = $("input[name=colorToggle]:checked").val()
-        var iconText = nameInput+color+0;
+        console.log(!/(\s)/.test(nameInput))
+        if (!/(\s)/.test(nameInput)) {
+            var color = $("input[name=colorToggle]:checked").val()
+            var iconText = nameInput+color+0;
         
-        datapacket = [415, 642, iconText].join(' ');
+            datapacket = [415, 642, iconText].join(' ');
 
-        addNewIconServer(datapacket);
+            addNewIconServer(datapacket);
+        } 
     });
 
     $(document).on('mousedown', '.icon', function(e) {
