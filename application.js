@@ -337,6 +337,7 @@ $(document).ready(function() {
             datapacket = [415, 642, iconText].join(' ');
 
             addNewIconServer(datapacket);
+            $('#addIconInput').val('')
         } 
     });
 
