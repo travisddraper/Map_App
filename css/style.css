@@ -208,7 +208,7 @@ body {
     }
 }
 
-@media(max-width: 400px) {
+@media(max-width: 575px) {
     .icon {
         font-size: 10px;
         line-height: 10px;
