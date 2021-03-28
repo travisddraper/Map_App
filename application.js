@@ -355,7 +355,7 @@ $(document).ready(function() {
 
     var interval;
 
-    $(window).on('keydown keyup click mousemove change touchstart', function(event) {
+    $(window).on('keydown keyup click mousemove change touchstart load', function(event) {
         interval = intervalReset(interval);
         refreshThis();
     })
