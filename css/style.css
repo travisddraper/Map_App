@@ -70,7 +70,7 @@ body {
 }
 .iconRow {
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     border: 4px groove rgb(156, 89, 0);
     box-shadow: 5px 10px 8px rgba(0, 0, 0, 0.5);
     padding-top: 10px;
@@ -121,13 +121,6 @@ body {
 }
 @media(max-width: 991px) {
 
-    .iconRow {
-        justify-content:space-evenly;
-    }
-    .iconRow button {
-        font-size: 20px;
-        line-height: 20px;
-    }
     .inputCol {
         width: 65px;
     }
