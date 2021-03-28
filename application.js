@@ -200,24 +200,33 @@ var deleteIconServer = function(id) {
 var toggleMove = function(elmnt, e, iconText) {
     var pos1=0; var pos2=0; var pos3=0; var pos4=0;
     var datapacket;
+    var touch;
 
 
     var elementDrag = function(e) {
+        
+        if(e.type === "touchmove") {
+            touch = e.changedTouches[0];
 
-        e = e || window.event;
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
-        var y = elmnt.style.top;
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
-        var x = elmnt.offsetLeft;
-       
-       
-        //var datapacket = [x, y, iconText];
-        //console.log(datapacket);
+            pos1 = pos3 - touch.pageX;
+            pos2 = pos4 - touch.pageY;
+            pos3 = touch.pageX;
+            pos4 = touch.pageY;
+            console.log(elmnt.offSetTop, '-', pos2);
+            elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
+            console.log(elmnt.style.top);
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
+
+        } else {  
+            e = e || window.event;
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
+        }
         
     }
 
@@ -225,12 +234,11 @@ var toggleMove = function(elmnt, e, iconText) {
         
         document.onmouseup = null;
         document.onmousemove = null;
+        document.ontouchend = null;
+        document.ontouchmove = null;
+
         var x = elmnt.style.left.replace('px', '');
         var y = elmnt.style.top.replace('px','');
-
-
-       // console.log('y', $('#overlay').height());
-       // console.log('x', (x/$('#overlay').width()*100), '%' );
 
         x = x/$('#overlay').width()*100
         y = y/$('#overlay').height()*100
@@ -247,14 +255,22 @@ var toggleMove = function(elmnt, e, iconText) {
     }
 
     var dragMouseDown = function(e) {
-        
-        e = e || window.event;
-        e.preventDefault();
+        if(e.type === "touchstart") {
+            touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+            pos3 = touch.pageX;
+            pos4 = touch.pageY;
+            document.ontouchend = closeDragElement;
+            document.ontouchmove = elementDrag;
 
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
+        }else {
+            e = e || window.event;
+            e.preventDefault();
+
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
     }
 
     dragMouseDown(e);
@@ -368,6 +384,26 @@ $(document).ready(function() {
         toggleMove(elmnt, e, iconText);
         
     })
+
+    $(document).on('touchstart', '.icon', function(e) {
+        var iconText = $(this).text()
+        if($(this).parent().is("#newCharacter")) {
+            iconText += "0";
+        }
+
+        if(($(this).hasClass('red'))) {
+            iconText = iconText+"red"
+        } else if(($(this).hasClass('blue'))) {
+            iconText = iconText+"blue"
+        }
+
+        var elmnt = $(this)[0]
+
+        toggleMove(elmnt, e, iconText);
+
+    })
+
+
 
     $(document).on('contextmenu', '.icon', function(event) {
         event.preventDefault();
