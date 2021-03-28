@@ -177,7 +177,7 @@ body {
     font-family: dungeonFont;
 }
 
-@media(min-width: 1200px) {
+@media(min-width: 992px) {
     .icon {
         font-size: 35px;
         line-height: 35px;
