@@ -11,10 +11,9 @@ body {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.shelf {
-    margin: 0 auto;
-    min-width: 900px !important;
 
+.container {
+    max-width: 1400px;
 }
 
 
@@ -33,10 +32,6 @@ body {
     }
 }
 
-.imageBox {
-    width: 900px !important;
-    margin: 0 auto;
-}
 
 #aspectRatioBox {
     position: relative;
@@ -55,19 +50,10 @@ body {
 
 .boxRow {
     justify-content: center;
-    min-width: 991px !important;
+   
 }
 
-@media(max-width: 990px) {
-    .boxRow {
-        margin-left: -25px !important;
-    }
-}
-@media(max-width: 900px) {
-    .boxRow {
-        margin-left: -40px !important;
-    }
-}
+
 .iconRow {
     flex-wrap: wrap;
     justify-content: space-between;
@@ -189,4 +175,16 @@ body {
     line-height: 20px;
     padding: 2px;
     font-family: dungeonFont;
+}
+
+@media(min-width: 1200px) {
+    .icon {
+        font-size: 35px;
+        line-height: 35px;
+    }
+
+    .iconRow button {
+        font-size: 35px;
+        line-height: 35px;
+    }
 }

@@ -85,7 +85,7 @@ var loadServer = function() {
 
 
                     
-                    $(".overlay").prepend($('<div style="left:' + x +'px; top:' + y + 'px" class="icon ' + color +'" data-id="' + task.id + '">'+ text + '</div>'))
+                    $(".overlay").prepend($('<div style="left:' + x +'%; top:' + y + '%" class="icon ' + color +'" data-id="' + task.id + '">'+ text + '</div>'))
                    
                 } else if (task.id === 1155) {
                     
@@ -228,11 +228,22 @@ var toggleMove = function(elmnt, e, iconText) {
         var x = elmnt.style.left.replace('px', '');
         var y = elmnt.style.top.replace('px','');
 
-        var datapacketz = [x, y, iconText].join(' ');
-        var id = $(elmnt).data('id');
-        console.log(datapacketz);
 
-        changeServerPosition(datapacketz, id)
+       // console.log('y', $('#overlay').height());
+       // console.log('x', (x/$('#overlay').width()*100), '%' );
+
+        x = x/$('#overlay').width()*100
+        y = y/$('#overlay').height()*100
+
+        if(!Number.isNaN(x) && !Number.isNaN(y)) {
+
+            var datapacketz = [x, y, iconText].join(' ');
+   
+            var id = $(elmnt).data('id');
+ 
+
+            changeServerPosition(datapacketz, id)
+        }
     }
 
     var dragMouseDown = function(e) {
@@ -297,10 +308,10 @@ $(document).ready(function() {
 
     var interval;
 
-    $(window).on('keydown keyup click mousemove change', function(event) {
-        interval = intervalReset(interval);
-        refreshThis();
-    })
+    //$(window).on('keydown keyup click mousemove change', function(event) {
+        //interval = intervalReset(interval);
+        //refreshThis();
+    //})
 
 
     $('#imageForm').on('submit', function(e) {
@@ -321,7 +332,7 @@ $(document).ready(function() {
             iconText = iconText+"blue"
         }
 
-        var datapacket = [415, 642, iconText].join(' ');
+        var datapacket = [47.67155461008557, 95.68406301892807, iconText].join(' ');
  
         addNewIconServer(datapacket)
     })
@@ -334,7 +345,7 @@ $(document).ready(function() {
             var color = $("input[name=colorToggle]:checked").val()
             var iconText = nameInput+color+0;
         
-            datapacket = [415, 642, iconText].join(' ');
+            datapacket = [47.67155461008557, 95.68406301892807, iconText].join(' ');
 
             addNewIconServer(datapacket);
             $('#addIconInput').val('')
