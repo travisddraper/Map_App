@@ -243,9 +243,7 @@ var toggleMove = function(elmnt, e, iconText) {
             pos2 = pos4 - touch.pageY;
             pos3 = touch.pageX;
             pos4 = touch.pageY;
-            console.log(elmnt.offSetTop, '-', pos2);
             elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
-            console.log(elmnt.style.top);
             elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
 
         } else {  
