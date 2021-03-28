@@ -308,10 +308,10 @@ $(document).ready(function() {
 
     var interval;
 
-    //$(window).on('keydown keyup click mousemove change', function(event) {
-        //interval = intervalReset(interval);
-        //refreshThis();
-    //})
+    $(window).on('keydown keyup click mousemove change', function(event) {
+        interval = intervalReset(interval);
+        refreshThis();
+    })
 
 
     $('#imageForm').on('submit', function(e) {
