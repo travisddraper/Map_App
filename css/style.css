@@ -35,16 +35,14 @@ body {
 
 
 #aspectRatioBox {
+    display: flex;
+    justify-content: center;
     position: relative;
-    padding-top: calc(3/4 * 100%); 
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
     
 }
 
-.overlay {
-    top: 0;
+.img-fluid {
+    justify-content: center;
     border: 4px groove rgb(156, 89, 0);
     box-shadow: 5px 10px 8px rgba(0, 0, 0, 0.5);
 }

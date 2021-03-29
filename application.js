@@ -116,11 +116,11 @@ var loadServer = function() {
 
 
                     
-                    $(".overlay").prepend($('<div style="left:' + x +'%; top:' + y + '%" class="icon ' + color +'" data-id="' + task.id + '">'+ text + '</div>'))
+                    $("#aspectRatioBox").append($('<div style="left:' + x +'%; top:' + y + '%" class="icon ' + color +'" data-id="' + task.id + '">'+ text + '</div>'))
                    
                 } else if (task.id === 1155) {
                     
-                    $('#aspectRatioBox').css("background-image", "url(" + task.content + ")");
+                    $('#imagePosition').attr("src", task.content)
                 }
             })
         },
@@ -143,6 +143,7 @@ var addNewIconServer = function(datapacket) {
             }
         }),
         success: function(response, textStatus) {
+            console.log('success!')
             loadServer();
         },
         error: function(request, textStatus, errorMessage) {
@@ -269,13 +270,13 @@ var toggleMove = function(elmnt, e, iconText) {
         var x = elmnt.style.left.replace('px', '');
         var y = elmnt.style.top.replace('px','');
 
-        x = x/$('#overlay').width()*100
-        y = y/$('#overlay').height()*100
+        x = x/$('#aspectRatioBox').width()*100
+        y = y/$('#aspectRatioBox').height()*100
 
         if(!Number.isNaN(x) && !Number.isNaN(y)) {
-
+            
             var datapacketz = [x, y, iconText].join(' ');
-   
+            console.log(datapacketz)
             var id = $(elmnt).data('id');
  
 
@@ -377,7 +378,7 @@ $(document).ready(function() {
             iconText = iconText+"blue"
         }
 
-        var datapacket = [47.67155461008557, 95.68406301892807, iconText].join(' ');
+        var datapacket = [46.82692307692308 , 91.99830057220095 , iconText].join(' ');
  
         addNewIconServer(datapacket)
     })
@@ -390,7 +391,7 @@ $(document).ready(function() {
             var color = $("input[name=colorToggle]:checked").val()
             var iconText = nameInput+color+0;
         
-            datapacket = [47.67155461008557, 95.68406301892807, iconText].join(' ');
+            datapacket = [46.82692307692308 , 91.99830057220095 , iconText].join(' ');
 
             addNewIconServer(datapacket);
             $('#addIconInput').val('')
@@ -410,6 +411,7 @@ $(document).ready(function() {
         }
 
         var elmnt = $(this)[0]
+        console.log(elmnt);
         toggleMove(elmnt, e, iconText);
         
     })
