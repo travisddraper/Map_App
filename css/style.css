@@ -33,6 +33,9 @@ body {
     }
 }
 
+.imageBox {
+    flex-direction: column;
+}
 
 #aspectRatioBox {
     display: flex;
