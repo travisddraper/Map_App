@@ -43,80 +43,18 @@ var loadServer = function() {
             $('.icon').remove();
             
             response.tasks.forEach(function(task) {
-               
-                var dataPacket = task.content.split(' ');
-               
+
                 if(task.id !== 1155) {
-                    var name = dataPacket[2];
-                    var color;
-                    var text;
-             
-                    
-                    if(/red/.test(name)) {
 
-                        name = name.replace('red','');
-                        color = 'red';
-                        
-                        if(/X/.test(name)) {
+                var dataPacket = task.content.split(' ');
+                //datapacket = [x, y, color, iconText]
 
-                            name = 'redX'
-                            text = 'X'
-                        
-                        }else if (/!/.test(name)) {
-
-                            name = 'redAH'
-                            text = "!"
-                            
-                        }else if(/\?/.test(name)) {
-
-                            name = 'redQ'
-                            text = "?"
-                           
-                        }else if(/0/.test(name)) {
-
-                            text = name.replace('0','');
-                            name = 'newCharacter'
-                           
-                        }else {
-                            text = name;
-                        }
-                    } else if (/blue/.test(name)) {
-
-                        name = name.replace('blue','');
-                        color = 'blue';
-        
-                        if(/X/.test(name)) {
-                           
-                            name = 'blueX'
-                            text = 'X'
-                            
-                        }else if (/!/.test(name)) {
-                            
-                            name = 'blueAH'
-                            text = "!"
-                            
-                        }else if(/\?/.test(name)) {
-                            
-                            name = 'blueQ'
-                            text = "?"
-                            
-                        }else if(/0/.test(name)) {
-
-                            text = name.replace('0','');
-                            name = 'newCharacter'
-
-                        } else {
-                            text = name;
-                        }
-                    }
-
-                    
-                    var x = dataPacket[0]
-                    var y = dataPacket[1]
-
-
-                    
-                    $("#aspectRatioBox").append($('<div style="left:' + x +'%; top:' + y + '%" class="icon ' + color +'" data-id="' + task.id + '">'+ text + '</div>'))
+                var x = dataPacket[0];
+                var y = dataPacket[1];
+                var color = dataPacket[2];
+                var name = dataPacket[3].replace(/-/g, ' ')
+       
+                    $("#aspectRatioBox").append($('<div style="left:' + x +'%; top:' + y + '%" class="icon ' + color +'" data-id="' + task.id + '">'+ name + '</div>'))
                    
                 } else if (task.id === 1155) {
                     
@@ -131,6 +69,7 @@ var loadServer = function() {
 }
 
 var addNewIconServer = function(datapacket) {
+        //datapacket = [x, y, color, iconText]
 
     $.ajax({
         type: 'POST',
@@ -143,7 +82,6 @@ var addNewIconServer = function(datapacket) {
             }
         }),
         success: function(response, textStatus) {
-            console.log('success!')
             loadServer();
         },
         error: function(request, textStatus, errorMessage) {
@@ -216,7 +154,7 @@ var deleteIconServer = function(id) {
         type: 'DELETE',
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '?api_key=29',
         success: function (response, textStatus) {
-          
+          console.log('deleted');
         },
         error: function (request, textStatus, errorMessage) {
           console.log(errorMessage);
@@ -229,7 +167,7 @@ var deleteIconServer = function(id) {
     
 
     
-var toggleMove = function(elmnt, e, iconText) {
+var toggleMove = function(elmnt, e, color, iconText) {
     var pos1=0; var pos2=0; var pos3=0; var pos4=0;
     var datapacket;
     var touch;
@@ -274,9 +212,9 @@ var toggleMove = function(elmnt, e, iconText) {
         y = y/$('#aspectRatioBox').height()*100
 
         if(!Number.isNaN(x) && !Number.isNaN(y)) {
-            
-            var datapacketz = [x, y, iconText].join(' ');
-            console.log(datapacketz)
+
+            var datapacketz = [x, y, color, iconText].join(' ');
+
             var id = $(elmnt).data('id');
  
 
@@ -344,12 +282,10 @@ var refreshThis = debounce(function() {
 
 
 
-
-
 $(document).ready(function() {
-
     
     loadServer();
+
   
 
     var interval;
@@ -372,65 +308,54 @@ $(document).ready(function() {
         var iconText = $(this).text();
    
         if(($(this).hasClass('red'))) {
-            iconText = iconText+"red"
+            var color = 'red';
         }
         if(($(this).hasClass('blue'))) {
-            iconText = iconText+"blue"
+            var color = 'blue';
         }
 
-        var datapacket = [46.82692307692308 , 91.99830057220095 , iconText].join(' ');
+        var datapacket = [46.82692307692308 , 91.99830057220095 , color, iconText].join(' ');
  
         addNewIconServer(datapacket)
     })
 
     $('#addIconForm').on('submit', function(e) {
         e.preventDefault();
-        var nameInput = $('#addIconInput').val();
-        console.log(!/(\s)/.test(nameInput))
-        if (!/(\s)/.test(nameInput)) {
-            var color = $("input[name=colorToggle]:checked").val()
-            var iconText = nameInput+color+0;
-        
-            datapacket = [46.82692307692308 , 91.99830057220095 , iconText].join(' ');
+        var nameInput = $('#addIconInput').val().replace(/(\s)/g, '-');
 
-            addNewIconServer(datapacket);
-            $('#addIconInput').val('')
-        } 
+        var color = $("input[name=colorToggle]:checked").val()
+        datapacket = [46.82692307692308 , 91.99830057220095 , color, nameInput].join(' ');
+
+        addNewIconServer(datapacket);
+        $('#addIconInput').val('')
     });
 
     $(document).on('mousedown', '.icon', function(e) {
-        var iconText = $(this).text()
-        if($(this).parent().is("#newCharacter")) {
-            iconText += "0";
-        }
+        var iconText = $(this).text().replace(/(\s)/g, '-');
 
         if(($(this).hasClass('red'))) {
-            iconText = iconText+"red"
+            var color = 'red';
         } else if(($(this).hasClass('blue'))) {
-            iconText = iconText+"blue"
+            var color = 'blue';
         }
 
         var elmnt = $(this)[0]
-        console.log(elmnt);
-        toggleMove(elmnt, e, iconText);
+        toggleMove(elmnt, e, color, iconText);
         
     })
 
     $(document).on('touchstart', '.icon', function(e) {
-        var iconText = $(this).text()
-        if($(this).parent().is("#newCharacter")) {
-            iconText += "0";
-        }
+        var iconText = $(this).text().replace(/(\s)/g, '-');
 
         if(($(this).hasClass('red'))) {
-            iconText = iconText+"red"
+            var color = 'red';
         } else if(($(this).hasClass('blue'))) {
-            iconText = iconText+"blue"
+            var color = 'blue';
         }
 
         var elmnt = $(this)[0]
 
-        toggleMove(elmnt, e, iconText);
+        toggleMove(elmnt, e, color, iconText);
 
     })
 
@@ -457,3 +382,70 @@ $(document).ready(function() {
 
 
 })
+
+
+/*
+if(task.id !== 1155) {
+    var name = dataPacket[2];
+    var color;
+    var text;
+
+    
+    if(/red/.test(name)) {
+
+        name = name.replace('red','');
+        color = 'red';
+        
+        if(/X/.test(name)) {
+
+            name = 'redX'
+            text = 'X'
+        
+        }else if (/!/.test(name)) {
+
+            name = 'redAH'
+            text = "!"
+            
+        }else if(/\?/.test(name)) {
+
+            name = 'redQ'
+            text = "?"
+           
+        }else if(/0/.test(name)) {
+
+            text = name.replace('0','');
+            name = 'newCharacter'
+           
+        }else {
+            text = name;
+        }
+    } else if (/blue/.test(name)) {
+
+        name = name.replace('blue','');
+        color = 'blue';
+
+        if(/X/.test(name)) {
+           
+            name = 'blueX'
+            text = 'X'
+            
+        }else if (/!/.test(name)) {
+            
+            name = 'blueAH'
+            text = "!"
+            
+        }else if(/\?/.test(name)) {
+            
+            name = 'blueQ'
+            text = "?"
+            
+        }else if(/0/.test(name)) {
+
+            text = name.replace('0','');
+            name = 'newCharacter'
+
+        } else {
+            text = name;
+        }
+    }
+    */

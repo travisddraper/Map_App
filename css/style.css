@@ -176,6 +176,7 @@ body {
     padding: 2px;
     font-family: dungeonFont;
     touch-action:none;
+    white-space: nowrap;
 }
 
 @media(min-width: 992px) {
