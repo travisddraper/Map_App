@@ -41,7 +41,7 @@ body {
     flex-direction: column;
 }
 
-@media(max-height: 550px) {
+@media(max-height: 805px) {
     .imageBox {
         margin-left: 3rem !important;
         margin-right: 3rem !important;
