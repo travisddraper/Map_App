@@ -244,43 +244,9 @@ var toggleMove = function(elmnt, e, color, iconText) {
     dragMouseDown(e);
 }
 
-
-
-
-
 var refreshThePage = function() {
     return loadServer();
 }
-
-//var intervalReset = function(interval) {
-  //  if(interval) {
-    //    console.log(interval);
-      //  window.clearInterval(interval);
-        //interval = window.setInterval(refreshThePage, 3000);
-        //return interval
-    //} else if(!interval) {
-      //  console.log(interval);
-       // interval = window.setInterval(refreshThePage, 3000);
-        //return interval
-    //}
-//}
-
-
-
-//var debounce = function(callback, delay) {
-  //  var timeout;
-   // return function() {
-     //   clearTimeout(timeout);
-       // timeout = setTimeout(callback, delay);
-   // }
-//}
-
-//var refreshThis = debounce(function() {
-  //  console.log('debounced!');
-  //  loadServer();
-//}, 3000);
-
-
 
 
 $(document).ready(function() {
@@ -451,3 +417,31 @@ if(task.id !== 1155) {
         }
     }
     */
+
+    //var intervalReset = function(interval) {
+  //  if(interval) {
+    //    console.log(interval);
+      //  window.clearInterval(interval);
+        //interval = window.setInterval(refreshThePage, 3000);
+        //return interval
+    //} else if(!interval) {
+      //  console.log(interval);
+       // interval = window.setInterval(refreshThePage, 3000);
+        //return interval
+    //}
+//}
+
+
+
+//var debounce = function(callback, delay) {
+  //  var timeout;
+   // return function() {
+     //   clearTimeout(timeout);
+       // timeout = setTimeout(callback, delay);
+   // }
+//}
+
+//var refreshThis = debounce(function() {
+  //  console.log('debounced!');
+  //  loadServer();
+//}, 3000);
