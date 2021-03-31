@@ -255,7 +255,7 @@ $(document).ready(function() {
 
     var interval = window.setInterval(refreshThePage, 3000);
 
-    $(window).on('keydown mousedown touchstart', function(event) {
+    $(window).on('keydown mousedown touchstart touchmove', function(event) {
         window.clearInterval(interval);
     })
 
