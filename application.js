@@ -39,7 +39,7 @@ var loadServer = function() {
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=29',
         dataType: 'json',
         success: function(response, textStatus) {
-
+            console.log('refreshed');
             $('.icon').remove();
             
             response.tasks.forEach(function(task) {
@@ -249,35 +249,36 @@ var toggleMove = function(elmnt, e, color, iconText) {
 
 
 var refreshThePage = function() {
-    console.log('reset');
     return loadServer();
 }
 
-var intervalReset = function(interval) {
-    if(interval) {
-        window.clearInterval(interval);
-        interval = window.setInterval(refreshThePage, 8000);
-        return interval
-    } else if(!interval) {
-        interval = window.setInterval(refreshThePage, 8000);
-        return interval
-    }
-}
+//var intervalReset = function(interval) {
+  //  if(interval) {
+    //    console.log(interval);
+      //  window.clearInterval(interval);
+        //interval = window.setInterval(refreshThePage, 3000);
+        //return interval
+    //} else if(!interval) {
+      //  console.log(interval);
+       // interval = window.setInterval(refreshThePage, 3000);
+        //return interval
+    //}
+//}
 
 
 
-var debounce = function(callback, delay) {
-    var timeout;
-    return function() {
-        clearTimeout(timeout);
-        timeout = setTimeout(callback, delay);
-    }
-}
+//var debounce = function(callback, delay) {
+  //  var timeout;
+   // return function() {
+     //   clearTimeout(timeout);
+       // timeout = setTimeout(callback, delay);
+   // }
+//}
 
-var refreshThis = debounce(function() {
-    console.log('debounced!');
-    loadServer();
-}, 3000);
+//var refreshThis = debounce(function() {
+  //  console.log('debounced!');
+  //  loadServer();
+//}, 3000);
 
 
 
@@ -286,13 +287,14 @@ $(document).ready(function() {
     
     loadServer();
 
-  
+    var interval = window.setInterval(refreshThePage, 3000);
 
-    var interval;
+    $(window).on('keydown mousedown touchstart', function(event) {
+        window.clearInterval(interval);
+    })
 
-    $(window).on('keydown keyup click mousemove change touchstart load', function(event) {
-        interval = intervalReset(interval);
-        refreshThis();
+    $(window).on('keyup mouseup touchend', function(event) {
+        interval = window.setInterval(refreshThePage, 3000);
     })
 
 
