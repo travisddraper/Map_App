@@ -154,7 +154,8 @@ var deleteIconServer = function(id) {
         type: 'DELETE',
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '?api_key=29',
         success: function (response, textStatus) {
-          console.log('deleted');
+
+          loadServer();
         },
         error: function (request, textStatus, errorMessage) {
           console.log(errorMessage);
@@ -256,11 +257,11 @@ $(document).ready(function() {
 
     var interval = window.setInterval(refreshThePage, 3000);
 
-    $(window).on('keydown mousedown touchstart touchmove', function(event) {
+    $(document).on('mousedown touchstart touchmove', '.icon', function(event) {
         window.clearInterval(interval);
     })
 
-    $(window).on('keyup mouseup touchend', function(event) {
+    $(document).on('keyup mouseup touchend', '.icon', function(event) {
         interval = window.setInterval(refreshThePage, 3000);
     })
 
@@ -332,13 +333,13 @@ $(document).ready(function() {
 
     $(document).on('contextmenu', '.icon', function(event) {
         event.preventDefault();
-        $(this).remove();
+        //$(this).remove();
         deleteIconServer($(this).data('id'));
 
     })
 
     $(document).on('doubletap', '.icon', function(event) {
-        $(this).remove();
+        //$(this).remove();
         deleteIconServer($(this).data('id'));
     })
 
