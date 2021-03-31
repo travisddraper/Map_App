@@ -255,14 +255,14 @@ $(document).ready(function() {
     
     loadServer();
 
-    var interval = window.setInterval(refreshThePage, 3000);
+    var interval = window.setInterval(refreshThePage, 1000);
 
     $(document).on('mousedown touchstart touchmove', '.icon', function(event) {
         window.clearInterval(interval);
     })
 
     $(document).on('keyup mouseup touchend', '.icon', function(event) {
-        interval = window.setInterval(refreshThePage, 3000);
+        interval = window.setInterval(refreshThePage, 1000);
     })
 
 
