@@ -41,6 +41,13 @@ body {
     flex-direction: column;
 }
 
+@media(max-height: 550px) {
+    .imageBox {
+        margin-left: 3rem !important;
+        margin-right: 3rem !important;
+    }
+}
+
 #aspectRatioBox {
     display: flex;
     justify-content: center;
