@@ -25,6 +25,10 @@ body {
     justify-content:space-between;
 }
 
+#imageInput {
+    border-radius: 5px;
+    border: 2px groove black;
+}
 
 @media(max-width: 575px) {
     #imageInput {
