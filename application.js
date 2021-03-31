@@ -167,7 +167,7 @@ var deleteIconServer = function(id) {
     
 
     
-var toggleMove = function(elmnt, e, color, iconText) {
+var toggleMove = function(elmnt, e, color, iconText, interval) {
     var pos1=0; var pos2=0; var pos3=0; var pos4=0;
     var datapacket;
     var touch;
@@ -176,6 +176,7 @@ var toggleMove = function(elmnt, e, color, iconText) {
     var elementDrag = function(e) {
         
         if(e.type === "touchmove") {
+            window.clearInterval(interval);
             touch = e.changedTouches[0];
 
             pos1 = pos3 - touch.pageX;
@@ -323,7 +324,7 @@ $(document).ready(function() {
 
         var elmnt = $(this)[0]
 
-        toggleMove(elmnt, e, color, iconText);
+        toggleMove(elmnt, e, color, iconText, interval);
 
     })
 
