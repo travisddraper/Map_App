@@ -16,15 +16,10 @@ body {
     max-width: 1100px;
     padding-left: 0;
     padding-right: 0;
-}
-
-@media(min-width: 1000px) {
-    .container {
-        background-image: url(../css/redFelt.jpg);
-        border: 8px groove rgb(136, 104, 81);
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
+    background-image: url(../css/redFelt.jpg);
+    border: 8px groove rgb(136, 104, 81);
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .formBox {
