@@ -150,6 +150,7 @@ h1 {
     .iconRow .producer {
         padding-left: 0;
         padding-right: 0;
+        padding-bottom: 0 !important;
     }
 }
 .iconRow button {
