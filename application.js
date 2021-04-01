@@ -104,7 +104,6 @@ var changeServerPosition = function(datapacketz, id) {
         }),
         success: function(response, textStatus) {
 
-            loadServer();
         },
         error: function(request, textStatus, errorMessage) {
             console.log(errorMessage);
@@ -172,11 +171,12 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
     var pos1=0; var pos2=0; var pos3=0; var pos4=0;
     var datapacket;
     var touch;
-
+    window.clearInterval(interval);
 
     var elementDrag = function(e) {
-        
+        window.clearInterval(interval);
         if(e.type === "touchmove") {
+            window.clearInterval(interval);
             window.clearInterval(interval);
             touch = e.changedTouches[0];
 
@@ -188,6 +188,7 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
             elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
 
         } else {  
+            window.clearInterval(interval);
             e = e || window.event;
             e.preventDefault();
             pos1 = pos3 - e.clientX;
@@ -201,7 +202,7 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
     }
 
     var closeDragElement = function() {
-        
+        window.clearInterval(interval);
         document.onmouseup = null;
         document.onmousemove = null;
         document.ontouchend = null;
@@ -226,6 +227,7 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
 
     var dragMouseDown = function(e) {
         if(e.type === "touchstart") {
+            window.clearInterval(interval);
             touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
             pos3 = touch.pageX;
             pos4 = touch.pageY;
@@ -233,6 +235,7 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
             document.ontouchmove = elementDrag;
 
         }else {
+            window.clearInterval(interval);
             e = e || window.event;
             e.preventDefault();
 
@@ -246,23 +249,19 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
     dragMouseDown(e);
 }
 
-var refreshThePage = function() {
-    return loadServer();
-}
-
 
 $(document).ready(function() {
     
     loadServer();
 
-    var interval = window.setInterval(refreshThePage, 1000);
+    var interval = window.setInterval(loadServer, 1000);
 
     $(document).on('mousedown touchstart touchmove', '.icon', function(event) {
         window.clearInterval(interval);
     })
 
     $(document).on('keyup mouseup touchend', '.icon', function(event) {
-        interval = window.setInterval(refreshThePage, 1000);
+        interval = window.setInterval(loadServer, 1000);
     })
 
 
@@ -300,6 +299,10 @@ $(document).ready(function() {
         $('#addIconInput').val('')
     });
 
+    $(window).on('mousemove touchmove', function(e) {
+        e.preventDefault();
+    })
+    
     $(document).on('mousedown', '.icon', function(e) {
         var iconText = $(this).text().replace(/(\s)/g, '-');
 
