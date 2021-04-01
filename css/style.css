@@ -8,6 +8,9 @@ body {
     display: flex;
     align-items: center;
     background-image: url(../css/woodenBoards.jpeg);
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
