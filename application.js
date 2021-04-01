@@ -154,7 +154,7 @@ var deleteIconServer = function(id) {
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '?api_key=29',
         success: function (response, textStatus) {
 
-          loadServer();
+          //loadServer();
         },
         error: function (request, textStatus, errorMessage) {
           console.log(errorMessage);
@@ -186,6 +186,7 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
             pos4 = touch.pageY;
             elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
             elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
+            
 
         } else {  
             window.clearInterval(interval);
@@ -195,12 +196,18 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
             pos2 = pos4 - e.clientY;
             pos3 = e.clientX;
             pos4 = e.clientY;
+            if(Math.abs((elmnt.offsetTop - pos2) + (elmnt.offsetLeft - pos1)) < 2) {
+                //bug band-aid fix
+                window.location.reload();
+                return false;
+            }
             elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
             elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
+            
         }
         
     }
-
+    
     var closeDragElement = function() {
         window.clearInterval(interval);
         document.onmouseup = null;
@@ -248,20 +255,24 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
 
     dragMouseDown(e);
 }
-
+var reloadThePage = function(refreshCount) {
+    refreshCount++;
+ 
+    loadServer()
+}
 
 $(document).ready(function() {
-    
-    loadServer();
+    loadServer(); 
+    var refreshCount= 0;
 
-    var interval = window.setInterval(loadServer, 1000);
+    var interval = window.setInterval(reloadThePage, 1000);
 
     $(document).on('mousedown touchstart touchmove', '.icon', function(event) {
         window.clearInterval(interval);
     })
 
     $(document).on('keyup mouseup touchend', '.icon', function(event) {
-        interval = window.setInterval(loadServer, 1000);
+        interval = window.setInterval(reloadThePage, 1000);
     })
 
 
@@ -302,7 +313,7 @@ $(document).ready(function() {
     $(window).on('mousemove touchmove', function(e) {
         e.preventDefault();
     })
-    
+
     $(document).on('mousedown', '.icon', function(e) {
         var iconText = $(this).text().replace(/(\s)/g, '-');
 
@@ -336,13 +347,13 @@ $(document).ready(function() {
 
     $(document).on('contextmenu', '.icon', function(event) {
         event.preventDefault();
-        //$(this).remove();
+        $(this).remove();
         deleteIconServer($(this).data('id'));
 
     })
 
     $(document).on('doubletap', '.icon', function(event) {
-        //$(this).remove();
+        $(this).remove();
         deleteIconServer($(this).data('id'));
     })
 
