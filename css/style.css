@@ -36,7 +36,7 @@ h1 {
     padding: 5px;
 }
 
-@media(min-width: 992px) {
+@media(min-width: 768px) {
     h1 {
         font-size: 100px;
         background-color: transparent !important;
@@ -214,7 +214,9 @@ h1 {
     height: 25px;
     line-height: 25px;
     width: 100%;
+    border-radius: 5px;
     border: 1px solid black;
+    background-color: antiquewhite;
 }
 
 @media(max-width: 1201px) {
