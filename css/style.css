@@ -142,6 +142,16 @@ h1 {
     }
 }
 
+@media(max-width: 500px) {
+    .iconRow {
+        justify-content:space-evenly;
+    }
+
+    .iconRow .producer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
 .iconRow button {
     font-family: dungeonFont;
     background-color: transparent;
@@ -151,6 +161,7 @@ h1 {
     padding-bottom: 5px;
     line-height: 25px;
 }
+
 
 .iconRow button:focus {
     box-shadow: 5px 10px 8px #888888;
@@ -278,6 +289,7 @@ h1 {
         line-height: 20px;
     }
 }
+
 
 @media(max-width: 575px) {
     .icon {
