@@ -196,14 +196,14 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
             pos2 = pos4 - e.clientY;
             pos3 = e.clientX;
             pos4 = e.clientY;
-            if(Math.abs((elmnt.offsetTop - pos2) + (elmnt.offsetLeft - pos1)) < 2) {
+            if(Math.abs(((elmnt.offsetLeft - pos1)/$('#aspectRatioBox').width()*100) + ((elmnt.offsetTop - pos2)/$('#aspectRatioBox').height()*100)) < 0.5) {
                 //bug band-aid fix
                 window.location.reload();
                 return false;
             }
             elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
             elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
-            
+           
         }
         
     }
