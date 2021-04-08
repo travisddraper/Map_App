@@ -41,31 +41,32 @@ var loadServer = function() {
             response.tasks.forEach(function(task) {
 
                 if(task.id !== 1155) {
+                    
                     var dataPacket = task.content.split(' ');
                     //datapacket = [x, y, color, iconText]
-                    //datapacket = ['grid', 'x', 'y']
+                    //datapacket = ['x', 'y']
 
-                    if(/grid/.test(dataPacket[0])) {
-                     
-                        var x = parseInt(dataPacket[1]);
-                        var y = parseInt(dataPacket[2]);
+                    if(task.id === 2186) {
+                      
+                        var x = parseInt(dataPacket[0]);
+                        var y = parseInt(dataPacket[1]);
 
                         if((x*y) <= 10,001) {
-                            if($('#masterRow')[0]) {
-                                $('#masterRow').remove();
-                            }
+
+                            $('#masterRow').remove();
+
                             var masterRow = $('<div/>').attr( { id:"masterRow", "class":"row", "data-id": task.id});
                             var iRow = $('<div/>').attr("class", "innerRow")
                             var iCol = $('<div/>').attr("class", "innerColumn")
     
                            $('#aspectRatioBox').append(masterRow)
                             for(i=0; i<y; i++) {
-    
+                                
                                 $('#masterRow').append($('<div/>').attr("class", "innerRow").height(100/y + '%'));
     
     
                                 for(j=0; j<x; j++) {
-    
+                                    
                                     $('.innerRow').eq(i).append($('<div/>').attr("class", "innerColumn").width(100/x + '%'));
                                 }
                             }
@@ -95,9 +96,7 @@ var loadServer = function() {
 }
 
 var addNewIconServer = function(datapacket) {
-        //datapacket = [x, y, color, iconText]
-        //datapacket = imageURL
-        //datapacket = grid x y
+        //datapacket = x, y, color, iconText
 
     $.ajax({
         type: 'POST',
@@ -120,6 +119,7 @@ var addNewIconServer = function(datapacket) {
 
 
 var changeServerPosition = function(datapacketz, id) {
+        // datapacketz = 'x, y, color, iconText'
     $.ajax({
         type: 'PUT',
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/'+ id +'?api_key=29',
@@ -155,7 +155,9 @@ var loadServerImage = function(id) {
 }
 
 
-var replaceServerImage = function(imageURL, id) {
+var replaceServerImage = function(datapacket, id) {
+            //datapacket = imageURL
+            //datapacket = 'x y'
     $.ajax({
         type: 'PUT',
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/'+ id +'?api_key=29',
@@ -163,7 +165,7 @@ var replaceServerImage = function(imageURL, id) {
         dataType: 'json',
         data: JSON.stringify({
             task: {
-                content: imageURL
+                content: datapacket
             }
         }),
         success: function(response, textStatus) {
@@ -305,22 +307,21 @@ $(document).ready(function() {
 
     $('#imageForm').on('submit', function(e) {
         e.preventDefault();
-        var imageURL = $('#imageInput').val()
-        replaceServerImage(imageURL, 1155)
+        var datapacket = $('#imageInput').val()
+        replaceServerImage(datapacket, 1155)
         $('#imageInput').val('')
     })
 
     $('#gridMaker').on('submit', function(e) {
         e.preventDefault();
 
-        deleteIconServer($('#masterRow').data('id'));
-        $('#masterRow').remove();
-
-        let datapacket = 'grid ';
+        let id = $('#masterRow').data('id');
         const reg = /x/;
-        let input = ($(this).children('input').val()).replace(reg, " ");
-        datapacket += input;
-        addNewIconServer(datapacket);
+        let datapacket = ($(this).children('input').val()).replace(reg, " ");
+        if(!datapacket) {
+            datapacket = '0';
+        }
+        replaceServerImage(datapacket, id);
     })
 
     
@@ -402,80 +403,13 @@ $(document).ready(function() {
             $(this).remove();
             deleteIconServer($(this).data('id'))
         })
-        deleteIconServer($('#masterRow').data('id'));
-        $('#masterRow').remove();
-        
+        let id = $('#masterRow').data('id');
+        let datapacket = '0 0';
+        replaceServerImage(datapacket, id);
     })
 
 
 })
-
-
-/*
-if(task.id !== 1155) {
-    var name = dataPacket[2];
-    var color;
-    var text;
-
-    
-    if(/red/.test(name)) {
-
-        name = name.replace('red','');
-        color = 'red';
-        
-        if(/X/.test(name)) {
-
-            name = 'redX'
-            text = 'X'
-        
-        }else if (/!/.test(name)) {
-
-            name = 'redAH'
-            text = "!"
-            
-        }else if(/\?/.test(name)) {
-
-            name = 'redQ'
-            text = "?"
-           
-        }else if(/0/.test(name)) {
-
-            text = name.replace('0','');
-            name = 'newCharacter'
-           
-        }else {
-            text = name;
-        }
-    } else if (/blue/.test(name)) {
-
-        name = name.replace('blue','');
-        color = 'blue';
-
-        if(/X/.test(name)) {
-           
-            name = 'blueX'
-            text = 'X'
-            
-        }else if (/!/.test(name)) {
-            
-            name = 'blueAH'
-            text = "!"
-            
-        }else if(/\?/.test(name)) {
-            
-            name = 'blueQ'
-            text = "?"
-            
-        }else if(/0/.test(name)) {
-
-            text = name.replace('0','');
-            name = 'newCharacter'
-
-        } else {
-            text = name;
-        }
-    }
-    */
 
     //var intervalReset = function(interval) {
   //  if(interval) {
