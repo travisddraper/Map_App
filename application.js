@@ -48,27 +48,28 @@ var loadServer = function() {
 
                     if(task.id === 2186) {
                       
-                        var x = parseInt(dataPacket[0]);
-                        var y = parseInt(dataPacket[1]);
+                        let x = parseInt(dataPacket[0]);
+                        let y = parseInt(dataPacket[1]);
 
-                        if((x*y) <= 10,001) {
+                        if(x*y > 10000) {
+                            x = 0;
+                            y = 0;
+                        }
+                            
+                        $('#masterRow').remove();
 
-                            $('#masterRow').remove();
-
-                            var masterRow = $('<div/>').attr( { id:"masterRow", "class":"row", "data-id": task.id});
-                            var iRow = $('<div/>').attr("class", "innerRow")
-                            var iCol = $('<div/>').attr("class", "innerColumn")
+                        var masterRow = $('<div/>').attr( { id:"masterRow", "class":"row", "data-id": task.id});
+                        var iRow = $('<div/>').attr("class", "innerRow")
+                        var iCol = $('<div/>').attr("class", "innerColumn")
     
-                           $('#aspectRatioBox').append(masterRow)
-                            for(i=0; i<y; i++) {
+                        $('#aspectRatioBox').append(masterRow)
+                        for(i=0; i<y; i++) {
                                 
-                                $('#masterRow').append($('<div/>').attr("class", "innerRow").height(100/y + '%'));
+                            $('#masterRow').append($('<div/>').attr("class", "innerRow").height(100/y + '%'));
     
-    
-                                for(j=0; j<x; j++) {
-                                    
-                                    $('.innerRow').eq(i).append($('<div/>').attr("class", "innerColumn").width(100/x + '%'));
-                                }
+                            for(j=0; j<x; j++) {
+
+                                $('.innerRow').eq(i).append($('<div/>').attr("class", "innerColumn").width(100/x + '%'));
                             }
                         }
                     } else {
