@@ -59,8 +59,6 @@ var loadServer = function() {
                         $('#masterRow').remove();
 
                         var masterRow = $('<div/>').attr( { id:"masterRow", "class":"row", "data-id": task.id});
-                        var iRow = $('<div/>').attr("class", "innerRow")
-                        var iCol = $('<div/>').attr("class", "innerColumn")
     
                         $('#aspectRatioBox').append(masterRow)
                         for(i=0; i<y; i++) {
