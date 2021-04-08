@@ -29,10 +29,6 @@
   })(jQuery);
 
 
-function isUpperCase(string) {
-   return /^[A-Z]*$/.test(string);
-}
-
 var loadServer = function() {
     $.ajax({
         type: 'GET',
@@ -45,16 +41,46 @@ var loadServer = function() {
             response.tasks.forEach(function(task) {
 
                 if(task.id !== 1155) {
+                    var dataPacket = task.content.split(' ');
+                    //datapacket = [x, y, color, iconText]
+                    //datapacket = ['grid', 'x', 'y']
 
-                var dataPacket = task.content.split(' ');
-                //datapacket = [x, y, color, iconText]
+                    if(/grid/.test(dataPacket[0])) {
+                     
+                        var x = parseInt(dataPacket[1]);
+                        var y = parseInt(dataPacket[2]);
 
-                var x = dataPacket[0];
-                var y = dataPacket[1];
-                var color = dataPacket[2];
-                var name = dataPacket[3].replace(/-/g, ' ')
-       
-                    $("#aspectRatioBox").append($('<div style="left:' + x +'%; top:' + y + '%" class="icon ' + color +'" data-id="' + task.id + '">'+ name + '</div>'))
+                        if((x*y) <= 10,001) {
+                            if($('#masterRow')[0]) {
+                                $('#masterRow').remove();
+                            }
+                            var masterRow = $('<div/>').attr( { id:"masterRow", "class":"row", "data-id": task.id});
+                            var iRow = $('<div/>').attr("class", "innerRow")
+                            var iCol = $('<div/>').attr("class", "innerColumn")
+    
+                           $('#aspectRatioBox').append(masterRow)
+                            for(i=0; i<y; i++) {
+    
+                                $('#masterRow').append($('<div/>').attr("class", "innerRow").height(100/y + '%'));
+    
+    
+                                for(j=0; j<x; j++) {
+    
+                                    $('.innerRow').eq(i).append($('<div/>').attr("class", "innerColumn").width(100/x + '%'));
+                                }
+                            }
+                        }
+                    } else {
+
+                        var x = dataPacket[0];
+                        var y = dataPacket[1];
+                        var color = dataPacket[2];
+                        var name = dataPacket[3].replace(/-/g, ' ')
+           
+                        $("#aspectRatioBox").append($('<div style="left:' + x +'%; top:' + y + '%" class="icon ' + color +'" data-id="' + task.id + '">'+ name + '</div>'))
+
+                    }
+
                    
                 } else if (task.id === 1155) {
                     
@@ -70,6 +96,8 @@ var loadServer = function() {
 
 var addNewIconServer = function(datapacket) {
         //datapacket = [x, y, color, iconText]
+        //datapacket = imageURL
+        //datapacket = grid x y
 
     $.ajax({
         type: 'POST',
@@ -255,15 +283,14 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
 
     dragMouseDown(e);
 }
-var reloadThePage = function(refreshCount) {
-    refreshCount++;
- 
+var reloadThePage = function() {
     loadServer()
 }
 
 $(document).ready(function() {
     loadServer(); 
-    var refreshCount= 0;
+    
+    
 
     var interval = window.setInterval(reloadThePage, 1000);
 
@@ -281,6 +308,19 @@ $(document).ready(function() {
         var imageURL = $('#imageInput').val()
         replaceServerImage(imageURL, 1155)
         $('#imageInput').val('')
+    })
+
+    $('#gridMaker').on('submit', function(e) {
+        e.preventDefault();
+
+        deleteIconServer($('#masterRow').data('id'));
+        $('#masterRow').remove();
+
+        let datapacket = 'grid ';
+        const reg = /x/;
+        let input = ($(this).children('input').val()).replace(reg, " ");
+        datapacket += input;
+        addNewIconServer(datapacket);
     })
 
     
@@ -362,6 +402,9 @@ $(document).ready(function() {
             $(this).remove();
             deleteIconServer($(this).data('id'))
         })
+        deleteIconServer($('#masterRow').data('id'));
+        $('#masterRow').remove();
+        
     })
 
 
