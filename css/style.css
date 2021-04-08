@@ -62,13 +62,18 @@ h1 {
 }
 
 .formBoxCol {
-    justify-content:space-evenly;
+    justify-content:center;
 }
+
 
 #imageInput {
     border-radius: 5px;
     border: 2px groove black;
     background-color: antiquewhite;
+}
+
+#imageForm {
+    padding-right: 10px;
 }
 
 #formSubmit {
@@ -91,7 +96,24 @@ h1 {
     white-space: nowrap;
 }
 
-@media(max-width: 668px) {
+.clearBox {
+    position: absolute;
+    right: 0;
+}
+
+@media (max-width: 1000px) {
+    .formBoxCol {
+        justify-content: start;
+    }
+    .clearBox {
+        position: static;
+    }
+    .formBoxCol {
+        justify-content:center;
+    }
+}
+
+@media(max-width: 679px) {
     #imageInput {
       width: 100px;
       font-size: 12px;
@@ -107,7 +129,6 @@ h1 {
     }
 
 }
-
 
 
 .imageBox {
