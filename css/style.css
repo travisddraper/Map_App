@@ -323,6 +323,7 @@ h1 {
     font-family: dungeonFont;
     touch-action:none;
     white-space: nowrap;
+    cursor:default;
 }
 
 @media(min-width: 992px) {
