@@ -370,7 +370,7 @@ $(document).ready(function() {
         }
 
         var elmnt = $(this)[0]
-        toggleMove(elmnt, e, color, iconText);
+        toggleMove(elmnt, e, color, iconText, interval);
         
     })
 
@@ -415,31 +415,3 @@ $(document).ready(function() {
 
 
 })
-
-    //var intervalReset = function(interval) {
-  //  if(interval) {
-    //    console.log(interval);
-      //  window.clearInterval(interval);
-        //interval = window.setInterval(refreshThePage, 3000);
-        //return interval
-    //} else if(!interval) {
-      //  console.log(interval);
-       // interval = window.setInterval(refreshThePage, 3000);
-        //return interval
-    //}
-//}
-
-
-
-//var debounce = function(callback, delay) {
-  //  var timeout;
-   // return function() {
-     //   clearTimeout(timeout);
-       // timeout = setTimeout(callback, delay);
-   // }
-//}
-
-//var refreshThis = debounce(function() {
-  //  console.log('debounced!');
-  //  loadServer();
-//}, 3000);
