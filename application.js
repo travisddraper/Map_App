@@ -226,12 +226,7 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
             pos2 = pos4 - e.clientY;
             pos3 = e.clientX;
             pos4 = e.clientY;
-            //console.log('x', ((elmnt.offsetLeft - pos1)/$('#aspectRatioBox').width()*100), 'y', ((elmnt.offsetTop - pos2)/$('#aspectRatioBox').height()*100))
-            //if(Math.abs(((elmnt.offsetLeft - pos1)/$('#aspectRatioBox').width()*100) + ((elmnt.offsetTop - pos2)/$('#aspectRatioBox').height()*100)) < 0.5) {
-                //bug band-aid fix
-                //window.location.reload();
-                //return false;
-            //}
+
             elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
             elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
            
@@ -252,7 +247,7 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
         x = x/$('#aspectRatioBox').width()*100
         y = y/$('#aspectRatioBox').height()*100
 
-        if(!Number.isNaN(x) && !Number.isNaN(y) &&  Math.abs(x + y) > 0.5) {
+        if(!Number.isNaN(x) && !Number.isNaN(y) /*&&  Math.abs(x + y) > 0.5*/) {
 
             var datapacketz = [x, y, color, iconText].join(' ');
 
@@ -260,12 +255,11 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
  
 
             changeServerPosition(datapacketz, id)
-        } else {
+        } //else {
             //bug band-aid fix
-            window.location.reload();
-            return false;
-
-        }
+            //window.location.reload();
+            //return false;
+        //}
     }
 
     var dragMouseDown = function(e) {
@@ -417,3 +411,11 @@ $(document).ready(function() {
 
 
 })
+
+/*
+            //console.log('x', ((elmnt.offsetLeft - pos1)/$('#aspectRatioBox').width()*100), 'y', ((elmnt.offsetTop - pos2)/$('#aspectRatioBox').height()*100))
+            //if(Math.abs(((elmnt.offsetLeft - pos1)/$('#aspectRatioBox').width()*100) + ((elmnt.offsetTop - pos2)/$('#aspectRatioBox').height()*100)) < 0.5) {
+                //bug band-aid fix
+                //window.location.reload();
+                //return false;
+            //}
