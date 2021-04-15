@@ -200,6 +200,7 @@ var toggleMove = function(elmnt, e, color, iconText, interval) {
     var pos1=0; var pos2=0; var pos3=0; var pos4=0;
     var datapacket;
     var touch;
+
     window.clearInterval(interval);
 
     var elementDrag = function(e) {
@@ -296,17 +297,18 @@ var reloadThePage = function() {
 
 $(document).ready(function() {
     loadServer(); 
-    
-    
-
+  
     var interval = window.setInterval(reloadThePage, 1000);
 
     $(document).on('mousedown touchstart touchmove', '.icon', function(event) {
         window.clearInterval(interval);
+        interval = null;
     })
 
     $(document).on('keyup mouseup touchend', '.icon', function(event) {
-        interval = window.setInterval(reloadThePage, 1000);
+        if(!interval) {
+            interval = window.setInterval(reloadThePage, 1000);
+        }
     })
 
 
